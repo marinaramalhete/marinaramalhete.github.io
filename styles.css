@@ -1,0 +1,354 @@
+/* ===========================================================================
+   Marina Ramalhete Masid — academic homepage
+   Single column, serif, no ornament. Light/dark follow the OS; no toggle.
+   =========================================================================== */
+
+:root {
+  --ink:        #1a1a1a;
+  --ink-muted:  #5c5c5c;
+  --ink-faint:  #757575;
+  --paper:      #fdfcf9;
+  --rule:       #dcd8cf;
+  --link:       #14418c;
+  --link-hover: #8a1c1c;
+
+  --measure: 42rem;
+  --serif: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype",
+           Palatino, Georgia, "Times New Roman", serif;
+
+  --step-0: 1.0625rem;   /* body */
+  --step--1: 0.875rem;   /* dates, notes */
+  --step--2: 0.78rem;    /* section headings */
+  --step-1: 1.05rem;     /* entry headings */
+  --step-2: 1.5rem;      /* name */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:        #e6e3dd;
+    --ink-muted:  #a5a099;
+    --ink-faint:  #8b867e;
+    --paper:      #16161a;
+    --rule:       #33333a;
+    --link:       #8fb3ec;
+    --link-hover: #e0a3a3;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 4rem 1.5rem 6rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* Repo names like DeepLearningAI_NLP_Specialization have no natural break
+     opportunity — underscores don't count. Without this, one long token would
+     push the whole page wider than a phone viewport. */
+  overflow-wrap: break-word;
+}
+
+body > * {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+/* --- links ---------------------------------------------------------------- */
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 0.5px;
+}
+a:hover { color: var(--link-hover); }
+
+a:focus-visible,
+.skip:focus-visible {
+  outline: 2px solid var(--link-hover);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule);
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+}
+
+/* --- masthead ------------------------------------------------------------- */
+
+.masthead h1 {
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.15rem;
+}
+
+.masthead .role {
+  margin: 0;
+  font-size: var(--step-0);
+}
+
+.role-sep {
+  color: var(--ink-faint);
+  padding: 0 0.15em;
+}
+
+.masthead .meta {
+  margin: 0.1rem 0 0;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+}
+
+.masthead .links {
+  margin: 0.85rem 0 0;
+  font-size: var(--step--1);
+}
+
+.sep {
+  color: var(--ink-faint);
+  padding: 0 0.3em;
+}
+
+.toc {
+  margin-top: 1.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+}
+.toc a {
+  display: inline-block;
+  margin-right: 1.1em;
+  white-space: nowrap;
+}
+
+/* --- sections ------------------------------------------------------------- */
+
+section { margin-top: 3rem; }
+
+h2 {
+  font-size: var(--step--2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* second h2 inside a shared section (Languages under Certifications) */
+section > h2 + * + h2,
+section > h2 ~ h2 { margin-top: 2.5rem; }
+
+.lede { margin: 0; }
+
+p { margin: 0 0 0.9rem; }
+
+/* --- entries -------------------------------------------------------------- */
+
+.entry { margin-bottom: 2.25rem; }
+.entry:last-child { margin-bottom: 0; }
+
+.entry h3 {
+  font-size: var(--step-1);
+  font-weight: 600;
+  margin: 0 0 0.1rem;
+}
+
+.when {
+  color: var(--ink-faint);
+  font-size: var(--step--1);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.entry h3 .when { margin-left: 0.5em; }
+
+.where {
+  margin: 0 0 0.6rem;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+}
+
+/* Company sites are supporting detail, not destinations — keep them quiet so
+   they don't compete with the publication and project links. */
+.where a { color: inherit; text-decoration-color: var(--rule); }
+.where a:hover { color: var(--link-hover); text-decoration-color: currentColor; }
+
+.src { font-size: var(--step--1); white-space: nowrap; }
+.src::before { content: "["; color: var(--ink-faint); }
+.src::after  { content: "]"; color: var(--ink-faint); }
+
+.note {
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+}
+
+.post {
+  margin: 1.1rem 0 0.4rem;
+  font-style: italic;
+}
+.post .when { font-style: normal; margin-left: 0.4em; }
+
+ul, ol { margin: 0 0 0.9rem; padding-left: 1.15rem; }
+li { margin-bottom: 0.35rem; }
+li:last-child { margin-bottom: 0; }
+
+/* --- publications --------------------------------------------------------- */
+
+.pubs {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: pub;
+}
+.pubs > li {
+  position: relative;
+  padding-left: 1.9rem;
+  margin-bottom: 1.4rem;
+}
+.pubs > li::before {
+  counter-increment: pub;
+  content: "[" counter(pub) "]";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--ink-faint);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+.pubs p { margin: 0; }
+.pubs .authors { font-size: var(--step--1); color: var(--ink-muted); }
+.pubs .title { margin: 0.1rem 0; }
+.pubs .venue { font-size: var(--step--1); color: var(--ink-muted); }
+
+.status {
+  font-style: italic;
+  color: var(--ink-faint);
+}
+.status::before { content: "("; }
+.status::after  { content: ")"; }
+
+/* --- skills --------------------------------------------------------------- */
+
+.skills { margin: 0; }
+.skills dt {
+  font-weight: 600;
+  font-size: var(--step--1);
+  margin-top: 0.9rem;
+}
+.skills dt:first-child { margin-top: 0; }
+.skills dd {
+  margin: 0.1rem 0 0;
+  color: var(--ink-muted);
+}
+
+/* --- lists with trailing dates -------------------------------------------- */
+
+.projects, .writing, .community, .certs {
+  list-style: none;
+  padding-left: 0;
+}
+.projects > li, .writing > li, .community > li, .certs > li {
+  margin-bottom: 0.7rem;
+}
+.certs > li { margin-bottom: 0.3rem; }
+.certs .when { margin-left: 0.4em; }
+.writing .when { margin-left: 0.3em; }
+.community .when { margin-left: 0.3em; }
+
+.lang { font-style: italic; }
+
+/* --- footer --------------------------------------------------------------- */
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+}
+footer p { margin: 0; }
+
+/* --- narrow screens ------------------------------------------------------- */
+
+@media (max-width: 34rem) {
+  body { padding: 2.5rem 1.15rem 4rem; }
+  :root { --step-2: 1.35rem; }
+  .entry h3 .when { display: block; margin-left: 0; }
+  .toc a { margin-right: 0.9em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===========================================================================
+   Print — this is the PDF. Cmd+P should produce a clean, complete CV.
+   =========================================================================== */
+
+@media print {
+  :root {
+    --ink: #000;
+    --ink-muted: #333;
+    --ink-faint: #444;
+    --paper: #fff;
+    --rule: #bbb;
+    --link: #000;
+    --measure: 100%;
+  }
+
+  @page { margin: 16mm 14mm; }
+
+  body {
+    padding: 0;
+    font-size: 10pt;
+    line-height: 1.4;
+    background: #fff;
+    color: #000;
+  }
+
+  .skip, .toc { display: none; }
+  footer { display: none; }
+
+  a { text-decoration: none; color: #000; }
+
+  /* Show destinations, since a printed link is otherwise dead. Skip in-page
+     anchors and the JS-assembled email, which have no useful printed form. */
+  main a[href^="http"]::after {
+    content: " <" attr(href) ">";
+    font-size: 8pt;
+    color: #444;
+    word-break: break-all;
+  }
+
+  section { margin-top: 1.4rem; }
+  h2 { margin-bottom: 0.7rem; padding-bottom: 0.25rem; }
+
+  h2, h3 { break-after: avoid; page-break-after: avoid; }
+  .entry, .pubs > li, .projects > li, .writing > li, .community > li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .entry { margin-bottom: 1.1rem; }
+}
